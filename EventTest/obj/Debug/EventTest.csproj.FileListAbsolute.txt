@@ -1,0 +1,12 @@
+D:\Soft\Test\EventTest\EventTest\bin\Debug\EventTest.exe.config
+D:\Soft\Test\EventTest\EventTest\bin\Debug\EventTest.exe
+D:\Soft\Test\EventTest\EventTest\bin\Debug\EventTest.pdb
+D:\Soft\Test\EventTest\EventTest\obj\Debug\EventTest.csprojResolveAssemblyReference.cache
+D:\Soft\Test\EventTest\EventTest\obj\Debug\EventTest.exe
+D:\Soft\Test\EventTest\EventTest\obj\Debug\EventTest.pdb
+D:\GitHub\hello-world\EventTest\bin\Debug\EventTest.exe.config
+D:\GitHub\hello-world\EventTest\obj\Debug\EventTest.exe
+D:\GitHub\hello-world\EventTest\obj\Debug\EventTest.pdb
+D:\GitHub\hello-world\EventTest\bin\Debug\EventTest.exe
+D:\GitHub\hello-world\EventTest\bin\Debug\EventTest.pdb
+D:\GitHub\hello-world\EventTest\obj\Debug\EventTest.csprojResolveAssemblyReference.cache
