@@ -10,3 +10,10 @@ D:\GitHub\hello-world\EventTest\obj\Debug\EventTest.pdb
 D:\GitHub\hello-world\EventTest\bin\Debug\EventTest.exe
 D:\GitHub\hello-world\EventTest\bin\Debug\EventTest.pdb
 D:\GitHub\hello-world\EventTest\obj\Debug\EventTest.csprojResolveAssemblyReference.cache
+D:\学习\NET\hello-world\EventTest\bin\Debug\EventTest.exe.config
+D:\学习\NET\hello-world\EventTest\bin\Debug\EventTest.exe
+D:\学习\NET\hello-world\EventTest\bin\Debug\EventTest.pdb
+D:\学习\NET\hello-world\EventTest\obj\Debug\EventTest.csprojAssemblyReference.cache
+D:\学习\NET\hello-world\EventTest\obj\Debug\EventTest.csproj.CoreCompileInputs.cache
+D:\学习\NET\hello-world\EventTest\obj\Debug\EventTest.exe
+D:\学习\NET\hello-world\EventTest\obj\Debug\EventTest.pdb
