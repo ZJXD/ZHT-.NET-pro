@@ -23,11 +23,10 @@ namespace MainEntrance
             //TextFormart.NumberFormart();
 
             // 测试字符串
-            StringTest.StartTest();
+            //StringTest.StartTest();
 
-            //int num1 = 10, num2 = 8;
-            //string percent = Math.Round((double)num2 / num1, 4).ToString("P");
-            //Console.WriteLine(percent);
+            // 日期测试
+            DataTimeHelper.GetLastMonth();
 
             Console.ReadKey();
         }

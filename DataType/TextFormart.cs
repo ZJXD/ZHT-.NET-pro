@@ -40,6 +40,11 @@ namespace DataType
             Console.WriteLine("往返过程:{0:R}", num);
             Console.WriteLine("科学计数法:{0:E5}", num);
 
+            // 百分比
+            int num1 = 10, num2 = 8;
+            string percent = Math.Round((double)num2 / num1, 4).ToString("P");
+            Console.WriteLine(percent);
+
             short sh1 = 1, sh2 = 2;
             int sh3 = sh1 + sh2;
         }
