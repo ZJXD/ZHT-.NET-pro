@@ -1,4 +1,5 @@
-﻿using DataType;
+﻿using AsyncTest;
+using DataType;
 using SortAlgo;
 using System;
 
@@ -26,7 +27,10 @@ namespace MainEntrance
             //StringTest.StartTest();
 
             // 日期测试
-            DataTimeHelper.GetLastMonth();
+            //DataTimeHelper.GetLastMonth();
+
+            // 测试异步
+            MultipleVerAsync.TaskAyscn();
 
             Console.ReadKey();
         }

@@ -1,0 +1,299 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using ThreadState = System.Threading.ThreadState;
+
+namespace AsyncTest
+{
+    /// <summary>
+    /// 多版本
+    /// </summary>
+    public class MultipleVerAsync
+    {
+        /// <summary>
+        /// 异步1：这个比较老，.NET Core 不支持
+        /// </summary>
+        public static void ActionAsync()
+        {
+            //委托异步多线程
+            Stopwatch watch = new Stopwatch();
+            watch.Start();
+            Console.WriteLine($"开始执行了,{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss ffff")},,,,{Thread.CurrentThread.ManagedThreadId}");
+            Action<string> act = DoSomethingLong;
+            for (int i = 0; i < 5; i++)
+            {
+                //int ThreadId = Thread.CurrentThread.ManagedThreadId;//获取当前线程ID
+                string name = $"Async {i}";
+                act.BeginInvoke(name, null, null);      // 该平台在这不支持
+            }
+            watch.Stop();
+            Console.WriteLine($"结束执行了,{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss ffff")},,,,{watch.ElapsedMilliseconds}");
+        }
+
+        /// <summary>
+        /// 一个比较耗时的方法,循环1000W次
+        /// </summary>
+        /// <param name="name"></param>
+        public static void DoSomethingLong(string name)
+        {
+            int iResult = 0;
+            for (int i = 0; i < 1000000000; i++)
+            {
+                iResult += i;
+            }
+            Console.WriteLine($"********************{name}*******{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss ffff")}****{Thread.CurrentThread.ManagedThreadId}****");
+        }
+
+        /// <summary>
+        /// Thread 异步
+        /// </summary>
+        public static void ThreadAsync()
+        {
+            // Thread
+            // Thread 默认属于前台线程，启动后必须完成
+            // Thread 有很多Api，但大多数都已经不用了
+            Console.WriteLine("Thread多线程开始了");
+            Stopwatch watch = new Stopwatch();
+            watch.Start();
+            //线程容器
+            List<Thread> list = new List<Thread>();
+            for (int i = 0; i < 5; i++)
+            {
+                //int ThreadId = Thread.CurrentThread.ManagedThreadId;//获取当前线程ID
+                string name = $"Async {i}";
+                void start1()
+                {
+                    DoSomethingLong(name);
+                }
+                Thread thread = new Thread(start1)
+                {
+                    IsBackground = true //设置为后台线程，关闭后立即退出
+                };
+                thread.Start();
+                list.Add(thread);
+                // thread.Suspend();    //暂停，已经不用了
+                // thread.Resume();     //恢复，已经不用了
+                // thread.Abort();      //销毁线程
+                // 停止线程靠的不是外部力量，而是线程自身，外部修改信号量，线程检测信号量
+            }
+            // 判断当前线程状态，来做线程等待
+            while (list.Count(t => t.ThreadState != ThreadState.Stopped) > 0)
+            {
+                Console.WriteLine("等待中....."); Thread.Sleep(500);
+            }
+            // 统计正确全部耗时，通过join来做线程等待
+            foreach (var item in list)
+            {
+                item.Join();    // 线程等待，表示把thread线程任务join到当前线程，也就是当前线程等着thread任务完成
+                                // 等待完成后统计时间
+            }
+            watch.Stop();
+
+            Console.WriteLine($"结束执行了,{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss ffff")},,,,{watch.ElapsedMilliseconds}");
+        }
+
+        /// <summary>
+        /// 回调封装，无返回值
+        /// </summary>
+        /// <param name="start"></param>
+        /// <param name="callback"></param>
+        private static void ThreadWithCallback(ThreadStart start, Action callback)
+        {
+            void nweStart()
+            {
+                start.Invoke();
+                callback.Invoke();
+            }
+            Thread thread = new Thread(nweStart);
+            thread.Start();
+        }
+
+        /// <summary>
+        /// Thread 异步，通过回调
+        /// </summary>
+        public static void ThreadAsyncByCallback()
+        {
+            // 回调的委托
+            void act()
+            {
+                Console.WriteLine("回调函数");
+            }
+            //要执行的异步操作
+            void start()
+            {
+                Console.WriteLine("正常执行。。");
+            }
+            ThreadWithCallback(start, act);
+        }
+
+        /// <summary>
+        /// 回调封装，有返回值
+        /// 想要获取返回值，必须要有一个等待的过程
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="func"></param>
+        /// <returns></returns>
+        private static Func<T> ThreadWithReturn<T>(Func<T> func)
+        {
+            T t = default(T);
+            // ThreadStart本身也是一个委托
+            void start()
+            {
+                t = func.Invoke();
+            }
+            // 开启一个子线程
+            Thread thread = new Thread(start);
+            thread.Start();
+            // 返回一个委托，因为委托本身是不执行的，所以这里返回出去的是还没有执行的委托
+            // 等在获取结果的地方，调用该委托
+            return () =>
+            {
+                // 只是判断状态的方法
+                while (thread.ThreadState != ThreadState.Stopped)
+                {
+                    Thread.Sleep(500);
+                }
+                // 使用线程等待
+                // thread.Join();
+                // 以上两种都可以
+                return t;
+            };
+        }
+
+        /// <summary>
+        /// Thread 异步，通过有返回值的回调
+        /// </summary>
+        public static void ThreadAsyncByReturn()
+        {
+            Func<int> func = () =>
+            {
+                Console.WriteLine("正在执行。。。");
+                Thread.Sleep(10000);
+                Console.WriteLine("执行结束。。。");
+                return DateTime.Now.Year;
+            };
+            Func<int> newfunc = ThreadWithReturn(func);
+            // 这里为了方便测试，只管感受回调的执行原理
+            Console.WriteLine("Else.....");
+            Thread.Sleep(100);
+            Console.WriteLine("Else.....");
+            Thread.Sleep(100);
+            Console.WriteLine("Else.....");
+            // 执行回调函数里return的委托获取结果
+            // newfunc.Invoke();
+            Console.WriteLine($"有参数回调函数的回调结果：{newfunc.Invoke()}");
+        }
+
+        /// <summary>
+        /// ThreadPool 异步
+        /// </summary>
+        public static void ThreadPoolAyscn()
+        {
+            ThreadPool.QueueUserWorkItem(p =>
+            {
+                // 这里的p是没有值的
+                Console.WriteLine("没有参数：" + p + ",1等待中……");
+                Thread.Sleep(2000);
+                Console.WriteLine($"线程池线程1,{Thread.CurrentThread.ManagedThreadId}");
+            });
+            ThreadPool.QueueUserWorkItem(p =>
+            {
+                // 这里的p就是传进来的值
+                Console.WriteLine("有参数：" + p + ",2等待中……");
+                Thread.Sleep(2000);
+                Console.WriteLine($"线程池线程2，带参数,{Thread.CurrentThread.ManagedThreadId}");
+            }, "这里是参数");
+
+            int workerThreads = 0;
+            int completionPortThreads = 0;
+            // 设置线程池的最大线程数量（普通线程，IO线程）
+            ThreadPool.SetMaxThreads(80, 80);
+            // 设置线程池的最小线程数量(普通线程，IO线程)
+            ThreadPool.SetMinThreads(8, 8);
+            ThreadPool.GetMaxThreads(out workerThreads, out completionPortThreads);
+            Console.WriteLine($"当前可用最大普通线程:{workerThreads}，IO:{completionPortThreads}");
+            ThreadPool.GetMinThreads(out workerThreads, out completionPortThreads);
+            Console.WriteLine($"当前可用最小普通线程：{workerThreads},IO:{completionPortThreads}");
+
+            // 用来控制线程等待,false默认为关闭状态
+            ManualResetEvent mre = new ManualResetEvent(false);
+            ThreadPool.QueueUserWorkItem(p =>
+            {
+                DoSomethingLong("控制线程等待");
+                Console.WriteLine($"线程池线程3，带参数,{Thread.CurrentThread.ManagedThreadId}");
+                // 通知线程，修改信号为true
+                mre.Set();
+            });
+            // 阻止当前线程，直到等到信号为true在继续执行
+            mre.WaitOne();
+            // 关闭线程，相当于设置成false
+            mre.Reset();
+            Console.WriteLine("信号被关闭了");
+            ThreadPool.QueueUserWorkItem(p =>
+            {
+                Console.WriteLine("再次等待");
+                mre.Set();
+            });
+            mre.WaitOne();
+        }
+
+        /// <summary>
+        /// Task 异步使用
+        /// </summary>
+        public static void TaskAyscn()
+        {
+            //Task.Factory.StartNew:创建一个新的线程，Task的线程也是从线程池中拿的（ThreadPool）
+
+            //Task.WaitAny:等待一群线程中的其中一个完成，这里是卡主线程，一直等到一群线程中的最快的一个完成，才能继续往下执行（20年前我也差点被后面的给追上），打个简单的比方：从三个地方获取配置信息（数据库，config，IO），同时开启三个线程来访问，谁快我用谁。
+
+            //Task.WaitAll:等待所有线程完成，这里也是卡主线程，一直等待所有子线程完成任务，才能继续往下执行。
+
+            //Task.ContinueWhenAny:回调形式的，任意一个线程完成后执行的后续动作，这个就跟WaitAny差不多，只不是是回调形式的。
+
+            //Task.ContinueWhenAll:回调形式的，所有线程完成后执行的后续动作，理解同上
+
+
+            // 线程容器 
+            List<Task> taskList = new List<Task>();
+            Stopwatch watch = new Stopwatch();
+            watch.Start();
+            Console.WriteLine("************Task Begin**************");
+            // 启动5个线程
+            for (int i = 0; i < 5; i++)
+            {
+                string name = $"Task:{i}";
+                Task task = Task.Factory.StartNew(() =>
+                {
+                    DoSomethingLong(name);
+                });
+                taskList.Add(task);
+            }
+            // 回调形式的，任意一个完成后执行的后续动作
+            Task any = Task.Factory.ContinueWhenAny(taskList.ToArray(), task =>
+            {
+                Console.WriteLine("ContinueWhenAny");
+            });
+            // 回调形式的，全部任务完成后执行的后续动作
+            Task all = Task.Factory.ContinueWhenAll(taskList.ToArray(), tasks =>
+            {
+                Console.WriteLine($"ContinueWhenAll{tasks.Length}");
+            });
+            // 把两个回调也放到容器里面，包含回调一起等待
+            taskList.Add(any);
+            taskList.Add(all);
+            // WaitAny:线程等待，当前线程等待其中一个线程完成
+            Task.WaitAny(taskList.ToArray());
+            Console.WriteLine("WaitAny");
+
+            // WaitAll:线程等待，当前线程等待所有线程的完成
+            Console.WriteLine("WaitAll");
+            Task.WaitAll(taskList.ToArray());
+            watch.Stop();
+            Console.WriteLine($"************Task End**************{watch.ElapsedMilliseconds},{Thread.CurrentThread.ManagedThreadId}");
+        }
+    }
+}
