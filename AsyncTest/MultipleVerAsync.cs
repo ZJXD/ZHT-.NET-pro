@@ -295,5 +295,204 @@ namespace AsyncTest
             watch.Stop();
             Console.WriteLine($"************Task End**************{watch.ElapsedMilliseconds},{Thread.CurrentThread.ManagedThreadId}");
         }
+
+        /// <summary>
+        /// Parallel（并行编程） 异步
+        /// </summary>
+        public static void ParallelAsync()
+        {
+            // 问：首先是为什么叫做并行编程，跟Task有什么区别？
+
+            // 答：使用Task开启子线程的时候，主线程是属于空闲状态，
+            // 并不参与执行（我是领导，有5件事情需要处理，我安排了5个手下去做，而我本身就是观望状态 PS：到底是领导。），
+            // Parallel开启子线程的时候，主线程也会参与计算（我是领导，我有5件事情需要处理，我身为领导，但是我很勤劳，
+            // 所以我做了一件事情，另外四件事情安排4个手下去完成），很明显，减少了开销。
+
+            // 你以为Parallel就只有这个炫酷的功能？大错特错，更炫酷的还有；
+            // Parallel可以控制线程的最大并发数量，啥意思？
+            // 就是不管你是脑溢血，还是心脏病，还是动脉大出血，我的手术室只有2个，同时也只能给两个人做手术，
+            // 做完一个在进来一个，同时做完两个，就同时在进来两个，多了不行。
+
+            // 当前，你想使用Task，或者ThreadPool来实现这样的效果也是可以的，不过这就需要你动动脑筋了，
+            // 当然，有微软给封装好的接口直接使用，岂不美哉？
+
+
+            // 并行编程 
+            Console.WriteLine($"*************Parallel start********{Thread.CurrentThread.ManagedThreadId}****");
+            // 一次性执行1个或多个线程，效果类似：Task WaitAll，只不过Parallel的主线程也参与了计算
+            Parallel.Invoke(
+            () => { DoSomethingLong("Parallel-1:`1"); },
+            () => { DoSomethingLong("Parallel-1:`2"); },
+            () => { DoSomethingLong("Parallel-1:`3"); },
+            () => { DoSomethingLong("Parallel-1:`4"); },
+            () => { DoSomethingLong("Parallel-1:`5"); });
+            // 定义要执行的线程数量
+            Parallel.For(0, 5, t =>
+            {
+                int a = t;
+                DoSomethingLong($"Parallel-2:`{a}");
+            });
+
+            {
+                ParallelOptions options = new ParallelOptions()
+                {
+                    MaxDegreeOfParallelism = 3 //执行线程的最大并发数量,执行完成一个，就接着开启一个
+                };
+                // 遍历集合，根据集合数量执行线程数量
+                Parallel.ForEach(new List<string> { "a", "b", "c", "d", "e", "f", "g" }, options, t =>
+                {
+                    DoSomethingLong($"Parallel-3:`{t}");
+                });
+            }
+
+            {
+                ParallelOptions options = new ParallelOptions()
+                {
+                    MaxDegreeOfParallelism = 3 // 执行线程的最大并发数量,执行完成一个，就接着开启一个
+                };
+                // 遍历集合，根据集合数量执行线程数量
+                Parallel.ForEach(new List<string> { "a", "b", "c", "d", "e", "f", "g" }, options, (t, status) =>
+                {
+                    // status.Break();  // 这一次结束。
+                    // status.Stop();   // 整个Parallel结束掉，Break和Stop不可以共存
+                    DoSomethingLong($"Parallel-4:`{t}");
+                });
+            }
+            Console.WriteLine("*************Parallel end************");
+        }
+
+        /// <summary>
+        /// 线程异常
+        /// </summary>
+        public static void ThreadException()
+        {
+            // 关于线程取消这块呢，要记住一点，线程只能自身终结自身，也就是除非我自杀，否则你干不掉我，
+            // 不要妄想通过主线程来控制计算中的子线程。
+
+            // 关于线程异常处理这块呢，想要捕获子线程的异常，最好在子线程本身抓捕，也可以使用Task的WaitAll，
+            // 不过这种方法不推荐，如果用了，别忘了一点，catch里面放的是AggregateException，不是Exception，
+            // 不然捕捉不到别怪我
+
+
+            TaskFactory taskFactory = new TaskFactory();
+            // 通知线程是否取消
+            CancellationTokenSource cts = new CancellationTokenSource();
+            List<Task> taskList = new List<Task>();
+            // 想要主线程抓捕到子线程异常，必须使用Task.WaitAll，这种方法不推荐
+            // 想要捕获子线程的异常，最好在子线程本身抓捕
+            // 完全搞不懂啊，看懵逼了都
+            try
+            {
+                for (int i = 0; i < 40; i++)
+                {
+                    int name = i;
+                    // 在子线程中抓捕异常
+                    Action<object> a = t =>
+                    {
+                        try
+                        {
+                            Thread.Sleep(2000);
+                            Console.WriteLine(cts.IsCancellationRequested);
+                            if (cts.IsCancellationRequested)
+                            {
+                                Console.WriteLine($"放弃执行{name}");
+                            }
+                            else
+                            {
+                                if (name == 1)
+                                {
+                                    throw new Exception($"取消了线程 name:{name},t:{t}");
+                                }
+                                if (name == 5)
+                                {
+                                    throw new Exception($"取消了线程 name:{name},t:{t}");
+                                }
+                                Console.WriteLine($"执行成功:{name}");
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            // 通知线程取消，后面的都不执行
+                            cts.Cancel();
+                            Console.WriteLine("子线程内部捕获：" + ex.Message);
+                        }
+                    };
+                    taskList.Add(taskFactory.StartNew(a, name, cts.Token));
+                }
+                Task.WaitAll(taskList.ToArray());
+            }
+            catch (AggregateException ex)
+            {
+                foreach (var item in ex.InnerExceptions)
+                {
+                    Console.WriteLine("TaskWaitAll 捕获：" + item.Message);
+                }
+            }
+        }
+
+        #region ThreadLock
+        //先准备三个公共变量
+        private static int iIndex;
+        private static object objLock = new object();
+        private static List<int> indexList = new List<int>();
+
+        static MultipleVerAsync()
+        {
+        }
+
+        /// <summary>
+        /// 没有加锁的
+        /// </summary>
+        public static void ThreadNoLock()
+        {
+            // 这个运行的结果，每次总是会少于 10000，这是因为有同时操作的情况，导致结果没有达到预期
+
+
+            List<Task> taskList = new List<Task>();
+            // 开启 10000个线程
+            for (int i = 0; i < 10000; i++)
+            {
+                int newI = i;
+                Task task = Task.Factory.StartNew(() =>
+                {
+                    iIndex += 1;
+                    indexList.Add(newI);
+                });
+                taskList.Add(task);
+            }
+            // 等待所有线程完成
+            Task.WhenAll(taskList.ToArray());
+            // 打印结果
+            Console.WriteLine(iIndex);
+            Console.WriteLine(indexList.Count);
+        }
+
+        /// <summary>
+        /// 带锁的多线程
+        /// </summary>
+        public static void ThreadLock()
+        {
+            List<Task> taskList = new List<Task>();
+
+            // 创建10000个Task
+            for (int i = 0; i < 10000; i++)
+            {
+                int NewI = i;
+                Task task = Task.Factory.StartNew(() =>
+                {
+                    lock (objLock)
+                    {
+                        iIndex += 1;
+                        indexList.Add(NewI);
+                    }
+                });
+                taskList.Add(task);
+            }
+            Task.WaitAll(taskList.ToArray());
+            Console.WriteLine(iIndex);
+            Console.WriteLine(indexList.Count);
+        }
+
+        #endregion
     }
 }
