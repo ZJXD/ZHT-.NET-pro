@@ -30,8 +30,12 @@ namespace MainEntrance
             //DataTimeHelper.GetLastMonth();
 
             // 测试异步
-            MultipleVerAsync.ThreadNoLock();
-            MultipleVerAsync.ThreadLock();
+            //MultipleVerAsync.ThreadNoLock();
+            //MultipleVerAsync.ThreadLock();
+
+            // 测试线程
+            //ThreadUse.ThreadUseEntrance();
+            ThreadUse.MutexUseEntre();
 
             Console.ReadKey();
         }

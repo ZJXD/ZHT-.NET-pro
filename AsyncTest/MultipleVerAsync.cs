@@ -10,7 +10,7 @@ using ThreadState = System.Threading.ThreadState;
 namespace AsyncTest
 {
     /// <summary>
-    /// 多版本
+    /// 多版本异步使用
     /// </summary>
     public class MultipleVerAsync
     {
