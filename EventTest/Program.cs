@@ -10,12 +10,15 @@ namespace EventTest
     {
         static void Main(string[] args)
         {
-            //实例化一个事件发送器
-            KeyInputMonitor keyInputMonitor = new KeyInputMonitor();
-            //实例化一个事件接收器
-            EventReceiver eventReceiver = new EventReceiver(keyInputMonitor);
-            //运行
-            keyInputMonitor.Run();
+            ////实例化一个事件发送器
+            //KeyInputMonitor keyInputMonitor = new KeyInputMonitor();
+            ////实例化一个事件接收器
+            //EventReceiver eventReceiver = new EventReceiver(keyInputMonitor);
+            ////运行
+            //keyInputMonitor.Run();
+
+            HostAndWife hostAndWife = new HostAndWife();
+            hostAndWife.Start();
         }
     }
 }

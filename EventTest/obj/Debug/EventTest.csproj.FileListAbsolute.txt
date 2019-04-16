@@ -17,3 +17,10 @@ D:\学习\NET\hello-world\EventTest\obj\Debug\EventTest.csprojAssemblyReference.
 D:\学习\NET\hello-world\EventTest\obj\Debug\EventTest.csproj.CoreCompileInputs.cache
 D:\学习\NET\hello-world\EventTest\obj\Debug\EventTest.exe
 D:\学习\NET\hello-world\EventTest\obj\Debug\EventTest.pdb
+D:\WorkMark\hello-world\EventTest\bin\Debug\EventTest.exe.config
+D:\WorkMark\hello-world\EventTest\bin\Debug\EventTest.exe
+D:\WorkMark\hello-world\EventTest\bin\Debug\EventTest.pdb
+D:\WorkMark\hello-world\EventTest\obj\Debug\EventTest.csprojAssemblyReference.cache
+D:\WorkMark\hello-world\EventTest\obj\Debug\EventTest.csproj.CoreCompileInputs.cache
+D:\WorkMark\hello-world\EventTest\obj\Debug\EventTest.exe
+D:\WorkMark\hello-world\EventTest\obj\Debug\EventTest.pdb
