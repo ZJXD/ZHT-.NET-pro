@@ -9,10 +9,10 @@ namespace DesignPatterns
     /// 什么是代理模式：本来有一个类A可以直接执行自己的方法就可以实现一个功能，现在先将这个类A作为一个属性传递给一个代理类，代理类在通过自己的方法调用A对象的方法，同时可以添加一些新的功能
     /// 为其他对象提供一种代理，用来控制对这个对象的访问。
     /// </summary>
-    class _7_代理模式
+    class ProxyPattern
     {
         public void Main()
-        {   
+        {
         }
     }
 
@@ -21,7 +21,7 @@ namespace DesignPatterns
         void GiveDolls();
         void GiveFlowers();
     }
-    public class Pursuit:IGiveGift
+    public class Pursuit : IGiveGift
     {
         public void GiveDolls()
         {
@@ -32,7 +32,7 @@ namespace DesignPatterns
             Console.Write("Give Flowers");
         }
     }
-    public class Proxy:IGiveGift
+    public class Proxy : IGiveGift
     {
         private IGiveGift IGift;
         public Proxy(IGiveGift iGift)

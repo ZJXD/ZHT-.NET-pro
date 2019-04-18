@@ -6,21 +6,23 @@ using System.Text;
 namespace DesignPatterns
 {
     /// <summary>
+    /// 工厂方法模式
     /// 工厂模式存在类与switch语句的高耦合，增加新的类 需要去增加case分支，违背了开放-封闭原则
     /// 工厂方法模式可以解决这个问题。
     /// </summary>
-    class 工厂方法模式
+    class FactoryMethod
     {
         public void Main()
         {
-            SubFactory sf=new SubFactory();
-            Operator op=sf.CreateOperator();
+            SubFactory sf = new SubFactory();
+            Operator op = sf.CreateOperator();
             op.NumberA = 10;
             op.NumberB = 5;
             op.GetResult();
         }
     }
-    public abstract  class Operator
+
+    public abstract class Operator
     {
         public double NumberA;
         public double NumberB;
@@ -29,18 +31,20 @@ namespace DesignPatterns
             return 0;
         }
     }
-    public class Add1:Operator
+
+    public class Add1 : Operator
     {
         public override double GetResult()
         {
-            return NumberA+NumberB;
+            return NumberA + NumberB;
         }
     }
-    public class Sub1:Operator
+
+    public class Sub1 : Operator
     {
         public override double GetResult()
         {
-            return NumberA-NumberB;
+            return NumberA - NumberB;
         }
     }
 
@@ -48,18 +52,20 @@ namespace DesignPatterns
     {
         Operator CreateOperator();
     }
-    class AddFactory:IFactory
+
+    class AddFactory : IFactory
     {
-        public  Operator CreateOperator()
+        public Operator CreateOperator()
         {
             return new Add1();
         }
     }
-    class SubFactory:IFactory
+
+    class SubFactory : IFactory
     {
-         public Operator CreateOperator()
-         {
-             return  new Sub1();
-         }
+        public Operator CreateOperator()
+        {
+            return new Sub1();
+        }
     }
 }

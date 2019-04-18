@@ -6,18 +6,20 @@ using System.Text;
 namespace DesignPatterns
 {
     /// <summary>
+    /// 原型模式（Clone模式）
     /// 原型模式：从一个对象创建另一个可以定制的对象，而且不需要知道任何创建的细节
     /// </summary>
-    class 原型模式
+    class PrototypePattern
     {
         public void Main()
         {
             var s = new ConcretePrototype1("id");
-            ((ProtoType) s).Idd();//访问父类被隐藏的Idd方法
-            s.Idd();//默认访问新类的Idd方法
-            var sClone=s.Clone();
+            ((ProtoType)s).Idd();   //访问父类被隐藏的Idd方法
+            s.Idd();                //默认访问新类的Idd方法
+            var sClone = s.Clone();
         }
     }
+
     #region 例子1
     abstract class ProtoType
     {
@@ -33,7 +35,7 @@ namespace DesignPatterns
         public abstract ProtoType Clone();
     }
 
-    class ConcretePrototype1:ProtoType
+    class ConcretePrototype1 : ProtoType
     {
         public ConcretePrototype1(string id) : base(id)
         {
@@ -48,28 +50,30 @@ namespace DesignPatterns
         }
     }
     #endregion
+
     #region 例子2  深复制和浅复制
-    class WorkExperice:ICloneable
+    class WorkExperice : ICloneable
     {
         public string Name { get; set; }
         public DateTime StarTime { get; set; }
         public DateTime EndTime { get; set; }
         public object Clone()
         {
-            return new WorkExperice(){Name = this.Name,StarTime = StarTime,EndTime = EndTime};//深度复制
+            return new WorkExperice() { Name = this.Name, StarTime = StarTime, EndTime = EndTime };//深度复制
             //return this.MemberwiseClone();如果属性只有值类型，用这个方法就可以实现浅表复制
         }
     }
 
     #endregion
+
     /// <summary>
     /// 由于Clone非常常见，所以.Net已经提供了这个Clone接口
     /// </summary>
-    class MyClass:ICloneable
+    class MyClass : ICloneable
     {
         public object Clone()
         {
-            return this.MemberwiseClone();//浅复制
+            return this.MemberwiseClone(); //浅复制
         }
     }
 }

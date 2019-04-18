@@ -19,7 +19,7 @@ namespace ReflectionOfDelegate
             var func = InstanceMethodBuilder<int, int>.CreateInstanceMethod(instance, method);
 
             // 和被测试方法一样的纯委托
-            Func<int, int> pureFunc = value => value;
+            int pureFunc(int value) => value;
 
             // 测试次数
             int count = 10000000;

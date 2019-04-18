@@ -15,7 +15,7 @@ namespace DesignPatterns
             oper.GetResult();
         }
     }
-   abstract  class Operat
+    abstract class Operat
     {
         public double NumberA { get; set; }
         public double NumberB { get; set; }
