@@ -7,19 +7,28 @@ namespace DesignPatterns
 {
     /// <summary>
     /// 建造者模式：用于创建一些复杂的对象，这些对象内部构建间的建造顺序较稳定，但是内部的构建过程是复杂变化的。
-    /// 建造者模式的好处就是使得建造代码和具体的表示代码分离，由于建造者隐藏了该产品的具体实现，如果需要改变一个产品的内部表示，只需要重新再定义一个建造者就行了，或者在同一个建造者内部重新写一个方法
+    /// 建造者模式的好处就是使得建造代码和具体的表示代码分离，由于建造者隐藏了该产品的具体实现，如果需要改变一个产品的内部表示，
+    /// 只需要重新再定义一个建造者就行了，或者在同一个建造者内部重新写一个方法
     /// 建造者Builder更像是一种对现有方法的有顺序整合
     /// </summary>
-    class _13_建造者模式
+    class BuilderPattern
     {
+        private Person person = new FatPerson();
+        public BuilderPattern()
+        {
+            Person person1 = new FatPerson();
+            Person person2 = new TinPerson();
+            Builder builder = new Builder(person1);
+            builder.Build(person2);
+        }
     }
-   public abstract class Person
+    public abstract class Person
     {
         public abstract void BuildHead();
         public abstract void BuildBody();
         public abstract void BuildLag();
     }
-    public class TinPerson:Person
+    public class TinPerson : Person
     {
         public override void BuildHead()
         {
@@ -34,24 +43,24 @@ namespace DesignPatterns
             Console.WriteLine("TinLag");
         }
     }
-    public class FatPerson:Person
+    public class FatPerson : Person
     {
         public override void BuildHead()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("FatHead");
         }
         public override void BuildBody()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("FatBody");
         }
         public override void BuildLag()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("FatLag");
         }
     }
     public class Builder
     {
-        public  Person Person {get; private set; }
+        public Person Person { get; private set; }
         public Builder(Person person)
         {
             this.Person = person;
@@ -62,6 +71,6 @@ namespace DesignPatterns
             Person.BuildBody();
             person.BuildLag();
         }
-        
+
     }
 }

@@ -12,8 +12,8 @@ namespace DesignPatterns
         static void Main(string[] args)
         {
             // 模板模式测试
-            TemplatePattern templatePattern = new TemplatePattern();
-            templatePattern.Main();
+            //TemplatePattern templatePattern = new TemplatePattern();
+            //templatePattern.Main();
 
             // 简单的深拷贝和浅拷贝
             //Student student1 = new Student { Id = 10, Name = "aedjoi", Addres = "adjgj", Number = 24 };
@@ -24,6 +24,17 @@ namespace DesignPatterns
             //Console.WriteLine($"student1.Number：{student1.Number},Name：{student1.Name}");
             //Console.WriteLine($"student2.Number：{student2.Number},Name：{student2.Name}");
             //Console.WriteLine($"student3.Number：{student3.Number},Name：{student3.Name}");
+
+            // 迪米特法则
+            //DemeterRule demeterRule = new DemeterRule();
+            //demeterRule.ClickButtonClose();
+
+            // 建造者模式
+            //BuilderPattern builderPattern = new BuilderPattern();
+
+            // 观察者模式
+            ObserverPattern observer = new ObserverPattern();
+            observer.StartObserver();
 
             Console.ReadLine();
         }

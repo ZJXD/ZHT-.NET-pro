@@ -50,9 +50,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="10_TemplatePattern.cs" />
-    <Compile Include="12、外观模式.cs" />
-    <Compile Include="13、建造者模式.cs" />
-    <Compile Include="14、观察者模式.cs" />
+    <Compile Include="12_FacadePattern.cs" />
+    <Compile Include="13_BuilderPattern.cs" />
+    <Compile Include="14_ObserverPattern.cs" />
     <Compile Include="15、抽象工厂方法.cs" />
     <Compile Include="16、状态模式.cs" />
     <Compile Include="17、适配器模式.cs" />
@@ -76,7 +76,7 @@
     <Compile Include="06_DecorativePattern.cs" />
     <Compile Include="08_FactoryMethodPattern.cs" />
     <Compile Include="09_PrototypePattern.cs" />
-    <Compile Include="11、迪米特法则.cs" />
+    <Compile Include="11_DemeterRule.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

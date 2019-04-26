@@ -8,10 +8,10 @@ namespace DesignPatterns
     /// <summary>
     /// 通过一个类对多个类进行集成，用户只需要知道一个方法，就可以调用多个被继承类的功能
     /// 对于老系统，如果要进行扩展修改可以采用这种模式
+    /// 对于这个的理解就是，这个应该和迪米特法则一块使用
     /// </summary>
-    class _12_外观模式
+    class FacadePattern
     {
-        
     }
 
     class Facade
