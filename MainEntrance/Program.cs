@@ -35,7 +35,13 @@ namespace MainEntrance
 
             // 测试线程
             //ThreadUse.ThreadUseEntrance();
-            ThreadUse.MutexUseEntre();
+            //ThreadUse.MutexUseEntre();
+
+            int[] temp = { 1, 2, 3, 4 };
+            DeepCopy deepCopy = new DeepCopy();
+            DeepCopy clone = deepCopy.Clone() as DeepCopy;
+            clone.s[2] = 10;
+            Console.WriteLine($"{deepCopy.s[2]},{clone.s[2]}");
 
             Console.ReadKey();
         }
