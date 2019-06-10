@@ -20,7 +20,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataType", "DataType\DataTy
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QueueOfE-commerce", "QueueOfE-commerce\QueueOfE-commerce.csproj", "{E50DBC5C-68BA-4D7C-82E7-EDFC9755F535}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Practice", "Practice", "{38097036-841F-4AB2-956A-CA5D229A839B}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PracticeByDotNetCore", "PracticeByDotNetCore", "{38097036-841F-4AB2-956A-CA5D229A839B}"
 	ProjectSection(SolutionItems) = preProject
 		Practice-Readme.txt = Practice-Readme.txt
 	EndProjectSection
@@ -31,11 +31,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttpSelfHost", "HttpSelfHos
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesignPatterns", "DesignPatterns\DesignPatterns.csproj", "{5434FA0B-5333-4D6C-B4EB-E24D0230BCAC}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DotNetCore", "DotNetCore", "{17910FE6-CC02-460B-B596-30721BE7F0E5}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReflectionOfDelegate", "ReflectionOfDelegate\ReflectionOfDelegate.csproj", "{C43D4D4E-5F76-45B0-9C56-E9794FDE8FED}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPFTest", "WPFTest\WPFTest.csproj", "{9D23A964-5350-4973-B375-1AB7C9CF9B79}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PracticeByDotNet", "PracticeByDotNet", "{5A0C7D39-CF30-4A3D-868D-DB4F4B7AB88D}"
+	ProjectSection(SolutionItems) = preProject
+		PracticeByDotNet-Readme.txt = PracticeByDotNet-Readme.txt
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -129,10 +132,12 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{F550716E-3498-4096-A1BC-3B7AEB49A0E4} = {5A0C7D39-CF30-4A3D-868D-DB4F4B7AB88D}
 		{473A38DD-8B6D-4E17-96AE-E1918D604C9E} = {1833AB05-2A0B-4627-A476-E7B3B2F27919}
 		{4ABDF1C8-A329-464B-B157-758F0AFCE873} = {11DEC7F2-A26D-49FB-96FB-949F3BE43C13}
 		{364E827A-D4E6-451B-83AC-9B0532AFCB16} = {38097036-841F-4AB2-956A-CA5D229A839B}
-		{C43D4D4E-5F76-45B0-9C56-E9794FDE8FED} = {17910FE6-CC02-460B-B596-30721BE7F0E5}
+		{1462F93F-4BC9-4383-90B9-3B5E375321A4} = {5A0C7D39-CF30-4A3D-868D-DB4F4B7AB88D}
+		{C43D4D4E-5F76-45B0-9C56-E9794FDE8FED} = {38097036-841F-4AB2-956A-CA5D229A839B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2B1D217C-3BD3-4001-B469-063C3F03B396}

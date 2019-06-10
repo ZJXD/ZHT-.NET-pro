@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace EventTest
 {
+    /// <summary>
+    /// 事件调用的一个示例
+    /// </summary>
     public class HostAndWife
     {
         public void Start()

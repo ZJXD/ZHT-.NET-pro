@@ -17,8 +17,14 @@ namespace EventTest
             ////运行
             //keyInputMonitor.Run();
 
-            HostAndWife hostAndWife = new HostAndWife();
-            hostAndWife.Start();
+            // 事件调用的示例
+            //HostAndWife hostAndWife = new HostAndWife();
+            //hostAndWife.Start();
+
+            // 注册表使用
+            RegistryKeyUse registryKeyUse = new RegistryKeyUse();
+            string valueName = registryKeyUse.GetRegistryValueName("TVWallClient-6001");
+            registryKeyUse.DeleteRegistryValue("TVWallClient-6001");
         }
     }
 }

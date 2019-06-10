@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -50,6 +51,20 @@ namespace WPFTest
                 Width = 125,
                 Height = 161
             });
+
+            RegistryKeyTest();
+        }
+
+        private void RegistryKeyTest()
+        {
+            RegistryKey R_local = Registry.LocalMachine;//RegistryKey R_local = Registry.CurrentUser;
+            RegistryKey R_run = R_local.CreateSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run");
+
+            object va = R_run.GetValue("TVWallClient-6001");
+            if (va!=null)
+            {
+                R_run.DeleteValue("TVWallClient-6001");
+            }
         }
     }
 }
