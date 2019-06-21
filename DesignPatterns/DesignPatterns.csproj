@@ -53,7 +53,7 @@
     <Compile Include="12_FacadePattern.cs" />
     <Compile Include="13_BuilderPattern.cs" />
     <Compile Include="14_ObserverPattern.cs" />
-    <Compile Include="15、抽象工厂方法.cs" />
+    <Compile Include="15_AbstractFactoryPattern.cs" />
     <Compile Include="16、状态模式.cs" />
     <Compile Include="17、适配器模式.cs" />
     <Compile Include="18、备忘录模式.cs" />

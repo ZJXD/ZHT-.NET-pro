@@ -13,8 +13,10 @@ namespace DesignPatterns
     {
         public void StartObserver()
         {
-            ISubject boss = new Boss();
-            boss.Name = "明天上午10点开会！";
+            ISubject boss = new Boss
+            {
+                Name = "明天上午10点开会！"
+            };
             Observer observerl = new Observer1("李四", boss);
             Observer observerz = new Observer1("张三", boss);
             boss.Attach(observerl);

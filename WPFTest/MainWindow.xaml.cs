@@ -13,6 +13,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
+using Utils;
 
 namespace WPFTest
 {
@@ -52,7 +54,19 @@ namespace WPFTest
                 Height = 161
             });
 
-            RegistryKeyTest();
+            //RegistryKeyTest();
+
+            SystemInfo info = new SystemInfo();
+            DispatcherTimer timer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromSeconds(1)
+            };
+            timer.Tick += (sebder, tick) => {
+                ProcessInfo process = info.GetProcessInfo("WPFTest")[0];
+                this.lab_CPU.Content = process.ProcessorTime;
+                this.lab_mamery.Content = process.WorkingSet;
+            };
+            timer.Start();
         }
 
         private void RegistryKeyTest()

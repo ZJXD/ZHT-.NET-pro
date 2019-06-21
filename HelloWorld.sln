@@ -40,6 +40,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PracticeByDotNet", "Practic
 		PracticeByDotNet-Readme.txt = PracticeByDotNet-Readme.txt
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utils", "Utils\Utils.csproj", "{7465FC72-4B4B-4492-9C0C-817ED627B246}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -127,6 +129,14 @@ Global
 		{9D23A964-5350-4973-B375-1AB7C9CF9B79}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9D23A964-5350-4973-B375-1AB7C9CF9B79}.Release|x86.ActiveCfg = Release|Any CPU
 		{9D23A964-5350-4973-B375-1AB7C9CF9B79}.Release|x86.Build.0 = Release|Any CPU
+		{7465FC72-4B4B-4492-9C0C-817ED627B246}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7465FC72-4B4B-4492-9C0C-817ED627B246}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7465FC72-4B4B-4492-9C0C-817ED627B246}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7465FC72-4B4B-4492-9C0C-817ED627B246}.Debug|x86.Build.0 = Debug|Any CPU
+		{7465FC72-4B4B-4492-9C0C-817ED627B246}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7465FC72-4B4B-4492-9C0C-817ED627B246}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7465FC72-4B4B-4492-9C0C-817ED627B246}.Release|x86.ActiveCfg = Release|Any CPU
+		{7465FC72-4B4B-4492-9C0C-817ED627B246}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

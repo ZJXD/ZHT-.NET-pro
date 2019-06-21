@@ -5,6 +5,10 @@ using System.Text;
 
 namespace DesignPatterns
 {
+    /// <summary>
+    /// 简单工厂模式
+    /// 工厂类（SimpleFactory）拥有一个工厂方法（create），接受了一个参数，通过不同的参数实例化不同的产品类。
+    /// </summary>
     class SimpleFactory
     {
         public void Main()

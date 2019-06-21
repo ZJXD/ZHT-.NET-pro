@@ -9,6 +9,10 @@
     <Grid x:Name="bor_img">
         <Button x:Name="btn_img" Content="Button" HorizontalAlignment="Left" Margin="72,65,0,0" VerticalAlignment="Top" Width="126" Height="131"/>
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="139" Margin="249,65,0,0" VerticalAlignment="Top" Width="257"/>
+        <Label Content="CPU使用：" HorizontalAlignment="Left" Margin="72,265,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.494,0.642"/>
+        <Label x:Name="lab_CPU" Content="0" HorizontalAlignment="Left" Margin="158,265,0,0" VerticalAlignment="Top"/>
+        <Label Content="内存使用：" HorizontalAlignment="Left" Margin="72,295,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lab_mamery" Content="0" HorizontalAlignment="Left" Margin="158,295,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>

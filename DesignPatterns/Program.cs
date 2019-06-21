@@ -33,8 +33,12 @@ namespace DesignPatterns
             //BuilderPattern builderPattern = new BuilderPattern();
 
             // 观察者模式
-            ObserverPattern observer = new ObserverPattern();
-            observer.StartObserver();
+            //ObserverPattern observer = new ObserverPattern();
+            //observer.StartObserver();
+
+            // 抽象工厂模式
+            AbstractFactoryPattern abstractFactory = new AbstractFactoryPattern();
+            abstractFactory.Main();
 
             Console.ReadLine();
         }

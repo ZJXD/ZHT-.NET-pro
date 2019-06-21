@@ -6,9 +6,11 @@ using System.Text;
 namespace DesignPatterns
 {
     /// <summary>
-    /// 工厂方法模式
+    /// 工厂方法模式（工厂模式）
     /// 工厂模式存在类与switch语句的高耦合，增加新的类 需要去增加case分支，违背了开放-封闭原则
     /// 工厂方法模式可以解决这个问题。
+    /// 工厂方法是针对每一种产品提供一个工厂类。通过不同的工厂实例来创建不同的产品实例。
+    /// 工厂方法模式是一种极端情况的抽象工厂模式（即只生产一种产品的抽象工厂模式），而抽象工厂模式可以看成是工厂方法模式的一种推广。
     /// </summary>
     class FactoryMethod
     {
@@ -48,14 +50,14 @@ namespace DesignPatterns
         }
     }
 
-    interface IFactory
+    abstract class IFactory
     {
-        Operator CreateOperator();
+        public abstract Operator CreateOperator();
     }
 
     class AddFactory : IFactory
     {
-        public Operator CreateOperator()
+        public override Operator CreateOperator()
         {
             return new Add1();
         }
@@ -63,7 +65,7 @@ namespace DesignPatterns
 
     class SubFactory : IFactory
     {
-        public Operator CreateOperator()
+        public override Operator CreateOperator()
         {
             return new Sub1();
         }
