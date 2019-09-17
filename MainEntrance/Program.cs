@@ -2,6 +2,7 @@
 using DataType;
 using SortAlgo;
 using System;
+using System.Collections.Generic;
 
 namespace MainEntrance
 {
@@ -18,6 +19,15 @@ namespace MainEntrance
             //int n = 0;
             //nums.QuickSort(0, 14, n);
             //nums.ShellSort();
+            List<int> nums = new List<int>();
+            Random random = new Random();
+            for (int i = 0; i < 200000; i++)
+            {
+                nums.Add(random.Next(1,1000000));
+            }
+            nums.QuickSort();
+
+            int count = nums.Count;
 
             // 文本格式化测试
             //TextFormart.AlignText();
@@ -37,11 +47,11 @@ namespace MainEntrance
             //ThreadUse.ThreadUseEntrance();
             //ThreadUse.MutexUseEntre();
 
-            int[] temp = { 1, 2, 3, 4 };
-            DeepCopy deepCopy = new DeepCopy();
-            DeepCopy clone = deepCopy.Clone() as DeepCopy;
-            clone.s[2] = 10;
-            Console.WriteLine($"{deepCopy.s[2]},{clone.s[2]}");
+            //int[] temp = { 1, 2, 3, 4 };
+            //DeepCopy deepCopy = new DeepCopy();
+            //DeepCopy clone = deepCopy.Clone() as DeepCopy;
+            //clone.s[2] = 10;
+            //Console.WriteLine($"{deepCopy.s[2]},{clone.s[2]}");
 
             Console.ReadKey();
         }

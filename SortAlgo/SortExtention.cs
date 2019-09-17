@@ -52,13 +52,21 @@ namespace SortAlgo
            5）重复第3、4步，直到i=j； (3,4步中，没找到符合条件的值，即3中A[j]不小于key,4中A[i]不大于key的时候改变j、i的值，
         *     使得j=j-1，i=i+1，直至找到为止。找到符合条件的值，进行交换的时候i， j指针位置不变。另外，i==j这一过程一定正好是i+或j-完成的时候，此时令循环结束）。
         */
-        public static void QuickSort(this IList<int> data, int left, int right,int num)
+        public static void QuickSort(this IList<int> data, int? left = null, int? right = null, int num = 0)
         {
+            if (left == null)
+            {
+                left = 0;
+            }
+            if (right == null)
+            {
+                right = data.Count - 1;
+            }
             if (left < right)
             {
-                int middle = data[(left + right) / 2];
-                int i = left - 1;
-                int j = right + 1;
+                int middle = data[(left.Value + right.Value) / 2];
+                int i = left.Value - 1;
+                int j = right.Value + 1;
                 while (true)
                 {
                     while (data[++i] < middle && i < right) ;
