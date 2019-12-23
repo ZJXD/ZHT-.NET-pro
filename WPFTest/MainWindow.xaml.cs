@@ -69,6 +69,9 @@ namespace WPFTest
             timer.Start();
         }
 
+        /// <summary>
+        /// 添加到注册表
+        /// </summary>
         private void RegistryKeyTest()
         {
             RegistryKey R_local = Registry.LocalMachine;//RegistryKey R_local = Registry.CurrentUser;

@@ -46,6 +46,7 @@
     <Compile Include="DiskInfo.cs" />
     <Compile Include="ProcessInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StringSplice.cs" />
     <Compile Include="SystemInfo.cs" />
   </ItemGroup>
   <ItemGroup>
